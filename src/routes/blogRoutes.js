@@ -13,6 +13,7 @@ app.get("/posts", async (request, response) => {
 });
 
 app.post("/posts", async (request, response) => {
+  request.body.date = Date.now();
   const posts = new PostModel(request.body);
 
   try {
@@ -25,6 +26,7 @@ app.post("/posts", async (request, response) => {
 
 app.put("/posts/:id", async (request, response) => {
   try {
+    request.body.date = Date.now();
     const posts = await PostModel.findByIdAndUpdate(request.params.id, request.body);
     if (!posts) {
       response.status(404).send("No post found");
