@@ -4,9 +4,10 @@ const app = express();
 
 app.get("/posts", async (request, response) => {
   const posts = await PostModel.find({});
+  const sortPosts = posts.sort((a, b) => b.date - a.date)
 
   try {
-    response.send(posts);
+    response.send(sortPosts);
   } catch (error) {
     response.status(500).send(error);
   }
